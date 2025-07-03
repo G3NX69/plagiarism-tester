@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Setup Guide | Plagiarism Detector</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2b3137;
+            --primary-dark: #24292e;
+            --secondary: #0366d6;
+            --light: #f6f8fa;
+            --dark: #24292e;
+            --success: #28a745;
+            --warning: #ffd33d;
+            --danger: #d73a49;
+            --gray: #6a737d;
+            --gray-light: #e1e4e8;
+            --border-radius: 6px;
+            --shadow: 0 3px 6px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e6ebf5 100%);
+            color: var(--dark);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 0;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+            display: inline-block;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            color: var(--gray);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .github-header {
+            background: var(--primary-dark);
+            color: white;
+            padding: 15px 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .github-header i {
+            font-size: 2rem;
+        }
+
+        .github-header-content h2 {
+            margin-bottom: 5px;
+            font-size: 1.5rem;
+        }
+
+        .github-header-content p {
+            opacity: 0.9;
+        }
+
+        .card {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            margin-bottom: 30px;
+            transition: var(--transition);
+            border: 1px solid var(--gray-light);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .card-header {
+            background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 15px 20px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-body {
+            padding: 25px;
+        }
+
+        .setup-steps {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .step-card {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            border: 1px solid var(--gray-light);
+        }
+
+        .step-number {
+            background: var(--secondary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            position: absolute;
+            top: -15px;
+            left: 20px;
+        }
+
+        .step-header {
+            background: var(--light);
+            padding: 30px 20px 20px;
+            border-bottom: 1px solid var(--gray-light);
+            position: relative;
+        }
+
+        .step-content {
+            padding: 20px;
+        }
+
+        .step-content h3 {
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+
+        .step-content p {
+            margin-bottom: 15px;
+            color: var(--gray);
+        }
+
+        .code-block {
+            background: #0d1117;
+            color: #c9d1d9;
+            border-radius: 6px;
+            padding: 16px;
+            margin: 15px 0;
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .code-block .prompt {
+            color: #58a6ff;
+            user-select: none;
+        }
+
+        .code-block .command {
+            color: #ffffff;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #035fc7;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--secondary);
+            color: var(--secondary);
+        }
+
+        .btn-outline:hover {
+            background: #f0f6ff;
+        }
+
+        .repo-info {
+            background: var(--light);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 30px;
+            border: 1px solid var(--gray-light);
+        }
+
+        .repo-info h3 {
+            margin-bottom: 15px;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .repo-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .repo-detail {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .repo-detail h4 {
+            color: var(--gray);
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .repo-detail p {
+            font-size: 1.1rem;
+            font-weight: 600;
+            word-break: break-all;
+        }
+
+        .repo-url {
+            background: var(--light);
+            padding: 10px 15px;
+            border-radius: var(--border-radius);
+            font-family: monospace;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .repo-url a {
+            color: var(--secondary);
+            text-decoration: none;
+        }
+
+        .repo-url a:hover {
+            text-decoration: underline;
+        }
+
+        .repo-url button {
+            background: none;
+            border: none;
+            color: var(--gray);
+            cursor: pointer;
+        }
+
+        .repo-url button:hover {
+            color: var(--dark);
+        }
+
+        .demo-container {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-top: 30px;
+            border: 1px solid var(--gray-light);
+        }
+
+        .demo-container h2 {
+            margin-bottom: 20px;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .demo-content {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .demo-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .demo-text h3 {
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+
+        .demo-text p {
+            margin-bottom: 15px;
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        .demo-visual {
+            flex: 1;
+            min-width: 300px;
+            background: #f8f9fa;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .github-icon {
+            font-size: 8rem;
+            color: #0d1117;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            height: 10px;
+            width: 100%;
+            background: #e1e4e8;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .progress {
+            height: 100%;
+            background: var(--success);
+            border-radius: 10px;
+            width: 75%;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-top: 30px;
+            border-top: 1px solid var(--gray-light);
+        }
+
+        .highlight {
+            background: #fff8c5;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .setup-steps {
+                flex-direction: column;
+            }
+            
+            .step-card {
+                min-width: 100%;
+            }
+            
+            .repo-details {
+                flex-direction: column;
+            }
+            
+            .demo-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fab fa-github"></i> GitHub Repository Setup Guide</h1>
+            <p>Step-by-step instructions to set up your Plagiarism Detector repository on GitHub</p>
+        </header>
+        
+        <div class="github-header">
+            <i class="fab fa-github"></i>
+            <div class="github-header-content">
+                <h2>plagiarism-detector</h2>
+                <p>Repository for AI-powered plagiarism detection tool</p>
+            </div>
+        </div>
+        
+        <div class="repo-info">
+            <h3><i class="fas fa-info-circle"></i> Repository Information</h3>
+            <div class="repo-details">
+                <div class="repo-detail">
+                    <h4>Owner</h4>
+                    <p>G3NX09</p>
+                </div>
+                <div class="repo-detail">
+                    <h4>Repository Name</h4>
+                    <p>plagiarism-detector</p>
+                </div>
+                <div class="repo-detail">
+                    <h4>Visibility</h4>
+                    <p>Public</p>
+                </div>
+                <div class="repo-detail">
+                    <h4>Created</h4>
+                    <p>Just now</p>
+                </div>
+            </div>
+            
+            <div class="repo-url">
+                <a href="https://github.com/G3NX09/plagiarism-detector" target="_blank">
+                    https://github.com/G3NX09/plagiarism-detector
+                </a>
+                <button title="Copy URL">
+                    <i class="far fa-copy"></i>
+                </button>
+            </div>
+        </div>
+        
+        <h2 style="margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+            <i class="fas fa-cogs"></i> Setup Instructions
+        </h2>
+        
+        <div class="setup-steps">
+            <div class="step-card">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <h3>Create Repository</h3>
+                </div>
+                <div class="step-content">
+                    <p>Create a new repository on GitHub:</p>
+                    <ul style="padding-left: 20px; margin: 15px 0;">
+                        <li>Name: <span class="highlight">plagiarism-detector</span></li>
+                        <li>Visibility: <span class="highlight">Public</span></li>
+                        <li>Initialize with a README</li>
+                    </ul>
+                    <a href="https://github.com/new" target="_blank" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Create Repository
+                    </a>
+                </div>
+            </div>
+            
+            <div class="step-card">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <h3>Clone Repository</h3>
+                </div>
+                <div class="step-content">
+                    <p>Clone your repository to your local machine:</p>
+                    <div class="code-block">
+                        <span class="prompt">$</span> <span class="command">git clone https://github.com/G3NX09/plagiarism-detector.git</span>
+                    </div>
+                    <p>Or using SSH:</p>
+                    <div class="code-block">
+                        <span class="prompt">$</span> <span class="command">git clone git@github.com:G3NX09/plagiarism-detector.git</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="step-card">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <h3>Add Files</h3>
+                </div>
+                <div class="step-content">
+                    <p>Create your project files in the repository folder:</p>
+                    <div class="code-block">
+                        <span class="prompt">$</span> <span class="command">cd plagiarism-detector</span><br>
+                        <span class="prompt">$</span> <span class="command">echo "# Plagiarism Detector" >> README.md</span><br>
+                        <span class="prompt">$</span> <span class="command">touch index.html styles.css script.js</span>
+                    </div>
+                    <p>Add your plagiarism detector code to these files.</p>
+                </div>
+            </div>
+            
+            <div class="step-card">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <h3>Commit Changes</h3>
+                </div>
+                <div class="step-content">
+                    <p>Commit your files to the repository:</p>
+                    <div class="code-block">
+                        <span class="prompt">$</span> <span class="command">git add .</span><br>
+                        <span class="prompt">$</span> <span class="command">git commit -m "Initial commit with plagiarism detector"</span><br>
+                        <span class="prompt">$</span> <span class="command">git push origin main</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="step-card">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <h3>Enable GitHub Pages</h3>
+                </div>
+                <div class="step-content">
+                    <p>Set up GitHub Pages for your repository:</p>
+                    <ol style="padding-left: 20px; margin: 15px 0;">
+                        <li>Go to repository Settings</li>
+                        <li>Select "Pages" from the left menu</li>
+                        <li>Set source to "main" branch</li>
+                        <li>Save and wait for deployment</li>
+                    </ol>
+                    <p>Your site will be available at:</p>
+                    <p class="highlight">https://G3NX09.github.io/plagiarism-detector</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-terminal"></i> Command Line Setup
+            </div>
+            <div class="card-body">
+                <p>For quick setup from an existing directory:</p>
+                <div class="code-block">
+                    <span class="prompt">$</span> <span class="command">echo "# plagiarism-detector" >> README.md</span><br>
+                    <span class="prompt">$</span> <span class="command">git init</span><br>
+                    <span class="prompt">$</span> <span class="command">git add README.md</span><br>
+                    <span class="prompt">$</span> <span class="command">git commit -m "first commit"</span><br>
+                    <span class="prompt">$</span> <span class="command">git branch -M main</span><br>
+                    <span class="prompt">$</span> <span class="command">git remote add origin https://github.com/G3NX09/plagiarism-detector.git</span><br>
+                    <span class="prompt">$</span> <span class="command">git push -u origin main</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="demo-container">
+            <h2><i class="fas fa-laptop-code"></i> Plagiarism Detector Preview</h2>
+            <div class="demo-content">
+                <div class="demo-text">
+                    <h3>About Your Project</h3>
+                    <p>Your plagiarism detector will be a web application that helps users check for duplicate content and AI-generated text. The tool will provide detailed reports showing similarity percentages and potential sources.</p>
+                    
+                    <h3>Key Features</h3>
+                    <ul style="padding-left: 20px; margin: 15px 0; color: var(--gray);">
+                        <li>Text input area with word count</li>
+                        <li>Plagiarism percentage indicator</li>
+                        <li>AI content detection</li>
+                        <li>Source matching with URLs</li>
+                        <li>Detailed analysis report</li>
+                        <li>Responsive design for all devices</li>
+                    </ul>
+                    
+                    <a href="#" class="btn btn-outline">
+                        <i class="fas fa-download"></i> Download HTML Template
+                    </a>
+                </div>
+                <div class="demo-visual">
+                    <div class="github-icon">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <h3>GitHub Pages Deployment</h3>
+                    <p>Your plagiarism detector will be deployed via GitHub Pages</p>
+                    
+                    <div class="progress-bar">
+                        <div class="progress"></div>
+                    </div>
+                    
+                    <p>Deployment status: <span class="highlight">Success</span></p>
+                    <p>Visit your site: <a href="#">G3NX09.github.io/plagiarism-detector</a></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-users"></i> Collaborate on Your Project
+            </div>
+            <div class="card-body">
+                <p>Invite collaborators to work on your plagiarism detector:</p>
+                <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 20px;">
+                    <div style="flex: 1; min-width: 200px;">
+                        <h4 style="margin-bottom: 10px;">Add Collaborators</h4>
+                        <p style="color: var(--gray);">Search for people using their GitHub username or email address.</p>
+                        <a href="#" class="btn btn-outline" style="margin-top: 10px;">
+                            <i class="fas fa-user-plus"></i> Invite Collaborators
+                        </a>
+                    </div>
+                    <div style="flex: 1; min-width: 200px;">
+                        <h4 style="margin-bottom: 10px;">Create Codespace</h4>
+                        <p style="color: var(--gray);">Start coding in a secure, configurable development environment.</p>
+                        <a href="#" class="btn btn-outline" style="margin-top: 10px;">
+                            <i class="fas fa-laptop-code"></i> Create Codespace
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>GitHub Repository Setup Guide &copy; 2025 | Created for G3NX09/plagiarism-detector</p>
+            <p>This interface simulates the GitHub repository creation and setup process for educational purposes.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Add copy functionality to the copy button
+        document.querySelector('.repo-url button').addEventListener('click', function() {
+            const url = 'https://github.com/G3NX09/plagiarism-detector';
+            navigator.clipboard.writeText(url);
+            
+            const originalIcon = this.innerHTML;
+            this.innerHTML = '<i class="fas fa-check"></i>';
+            
+            setTimeout(() => {
+                this.innerHTML = originalIcon;
+            }, 2000);
+        });
+        
+        // Simulate progress animation
+        const progressBar = document.querySelector('.progress');
+        let width = 0;
+        const progressInterval = setInterval(() => {
+            if (width >= 75) {
+                clearInterval(progressInterval);
+            } else {
+                width++;
+                progressBar.style.width = width + '%';
+            }
+        }, 20);
+    </script>
+</body>
+</html>
